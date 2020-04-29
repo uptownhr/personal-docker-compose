@@ -2,6 +2,7 @@ version: '2'
 
 services:
   samba_private:
+    env_file: samba.env
     image: dperson/samba
     ports:
       - 139:139
