@@ -27,3 +27,19 @@ services:
 #        reservations:
 #          cpus: '0.25'
 #          memory: 20M
+  plex:
+    image: linuxserver/plex
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+      #- UMASK_SET=022 #optional
+      #- PLEX_CLAIM= #optional
+    volumes:
+      - ${PLEX_CONFIG_PATH}:/config
+      - ${PLEX_TV_PATH}:/tv
+      - ${PLEX_MOVIE_PATH}:/movies
+      - ${PLEX_NEW_PATH}:/new
+    restart: unless-stopped
