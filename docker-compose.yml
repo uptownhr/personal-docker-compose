@@ -9,3 +9,21 @@ services:
     volumes:
       - ${SAMBA_PRIVATE_PATH}:/mount
     command: -p -u "${SAMBA_USER};${SAMBA_PASS}" -s "private;/mount;no;no;no;${SAMBA_USER}"
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1024M
+        reservations:
+          cpus: '0.25'
+          memory: 512M
+  redis:
+    image: redis:alpine
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
