@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  samba_private:
+    image: dperson/samba
+    ports:
+      - 139:139
+      - 445:445
+    volumes:
+      - ${SAMBA_PRIVATE_PATH}:/mount
+    command: -p -u "${SAMBA_USER};${SAMBA_PASS}" -s "private;/mount;no;no;no;${SAMBA_USER}"
