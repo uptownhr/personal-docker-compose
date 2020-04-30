@@ -9,6 +9,9 @@ services:
     volumes:
       - ${SAMBA_PRIVATE_PATH}:/mount
     command: -p -u "${SAMBA_USER};${SAMBA_PASS}" -s "private;/mount;yes;no;no;${SAMBA_USER}"
+    environment: 
+      - USERID=1000
+      - GROUPID=1000
 #    deploy:
 #      resources:
 #        limits:
