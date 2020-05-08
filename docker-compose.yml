@@ -38,3 +38,7 @@ services:
       - ${PLEX_MOVIE_PATH}:/movies
       - ${PLEX_NEW_PATH}:/new
     restart: unless-stopped
+  cfdyndns:
+    image: nobrainerlabs/cloudflare-dynamic-dns
+    env_file:
+      - .env
