@@ -59,4 +59,4 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
 volumes:
-  jenkins_home
+  jenkins_home:
