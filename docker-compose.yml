@@ -57,3 +57,6 @@ services:
       - 80:80
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+
+volumes:
+  jenkins_home
