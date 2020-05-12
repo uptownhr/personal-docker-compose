@@ -52,12 +52,36 @@ services:
     environment:
       - VIRTUAL_HOST=jenkins.${DOMAIN}
       - VIRTUAL_PORT=8080
+  pihole:
+    image: pihole/pihole
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "8053:80/tcp"
+      - "443:443/tcp"
+    environment:
+      TZ: 'America/Los_Angeles'
+      VIRTUAL_HOST: ${PIHOLE_VIRTUAL_HOST}
+      VIRTUAL_PORT: 80
+      WEBPASSWORD: ${PIHOLE_PASSWORD}
+    volumes:
+        - './etc-pihole/:/etc/pihole/'
+        - './etc-dnsmasq.d/:/etc/dnsmasq.d/'
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
   proxy:
     image: jwilder/nginx-proxy
     ports:
       - 80:80
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      DEFAULT_HOST: ${PIHOLE_VIRTUAL_HOST}
 
 volumes:
   jenkins_home:
